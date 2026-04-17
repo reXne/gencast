@@ -1,0 +1,61 @@
+name: gencast-era5-0p25deg
+use_synthetic_data: false
+
+data:
+  source: /path/to/era5.zarr
+  source_format: zarr
+  train_split: ["1979-01-01", "2018-12-31"]
+  valid_split: ["2019-01-01", "2019-06-30"]
+  test_split: ["2019-07-01", "2019-12-31"]
+  batch_size: 1
+  model_timestep_hours: 12
+  native_timestep_hours: 6
+  num_workers: 4
+  pin_memory: true
+  stats_path: artifacts/stats_era5_0p25deg.npz
+
+model:
+  resolution: 0.25
+  mesh_refinement: 5
+  k_grid_to_mesh: 4
+  k_mesh_to_grid: 3
+  attention_k_hop: 12
+  latent_dim: 384
+  processor_layers: 12
+  processor_heads: 4
+  ffw_hidden_dim: 1536
+  dropout: 0.0
+  input_steps: 2
+
+diffusion:
+  sigma_data: 1.0
+  sigma_min: 0.02
+  sigma_max: 88.0
+  rho: 7.0
+  num_sampling_steps: 20
+  stochastic_churn: 2.5
+  churn_min_sigma: 0.75
+  churn_max_sigma: 999999.0
+  noise_inflation: 1.05
+
+training:
+  device: cuda
+  epochs: 30
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+  grad_clip: 1.0
+  log_every: 10
+  valid_every: 1
+  num_ensemble_members: 16
+  checkpoint_dir: artifacts/checkpoints
+  seed: 42
+
+rollout:
+  forecast_steps: 30
+  ensemble_size: 16
+  output_path: artifacts/sample_era5_0p25deg.npz
+
+synthetic:
+  num_time_steps: 96
+  random_seed: 42
+
