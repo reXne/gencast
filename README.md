@@ -9,6 +9,10 @@ Este repositorio no afirma ser una copia bit a bit del codigo interno de Google 
 - La arquitectura mezcla un encoder `grid -> mesh`, un processor sparse-transformer sobre una malla icosaedrica y un decoder `mesh -> grid`.
 - El entrenamiento se hace sobre residuos respecto del ultimo estado conocido, con ponderacion por latitud y por variable.
 
+## Guia detallada
+
+Para una explicacion extensa del repositorio, arquitectura, pipeline, comandos, artefactos y resultados actuales del modo mini, revisa [`GUIA_GENCast.md`](GUIA_GENCast.md).
+
 ## Estado del proyecto
 
 El repo queda listo para:
@@ -59,4 +63,3 @@ La paridad real con GenCast de produccion depende de:
 - hardware importante para entrenamiento global a 0.25 grados.
 
 Este repo te deja la base de investigacion y entrenamiento para replicarlo publicamente, no pesos propietarios ni garantia de igualar el skill del paper sin esos recursos.
-
